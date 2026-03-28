@@ -1,28 +1,17 @@
-import React, { useContext } from "react";
-import { IssueContext } from "../context/IssueContext";
-
-const IssueCard = React.memo(({ issue }) => {
-  const { updateStatus } = useContext(IssueContext);
-
-  const moveNext = () => {
-    if (issue.status === "Open") {
-      updateStatus(issue.id, "In Progress");
-    } else if (issue.status === "In Progress") {
-      updateStatus(issue.id, "Closed");
-    }
-  };
-
+export default function IssueCard({ issue, onStatusChange }) {
   return (
-    <div style={{ border: "1px solid #ccc", padding: "10px", margin: "10px 0" }}>
+    <div style={{ border: "1px solid gray", padding: "10px", marginBottom: "10px" }}>
       <h3>{issue.title}</h3>
       <p>Status: {issue.status}</p>
-      <p>Priority: {issue.priority}</p>
 
-      {issue.status !== "Closed" && (
-        <button onClick={moveNext}>Move to Next Stage</button>
-      )}
+      <select
+        value={issue.status}
+        onChange={(e) => onStatusChange(issue.id, e.target.value)}
+      >
+        <option>Open</option>
+        <option>In Progress</option>
+        <option>Resolved</option>
+      </select>
     </div>
   );
-});
-
-export default IssueCard;
+}

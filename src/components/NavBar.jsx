@@ -1,22 +1,15 @@
 import { Link } from "react-router-dom";
 
-
-const NavBar = () => {
+export default function NavBar({ setIsAuth }) {
   return (
-    <div className="navbar">
-      <h2 style={{ color: "white" }}>Issue Tracker</h2>
+    <nav style={{ display: "flex", gap: "15px", padding: "10px", background: "#eee" }}>
+      <Link to="/">Dashboard</Link>
+      <Link to="/create">Create Issue</Link>
+      <Link to="/analytics">Analytics</Link>
+      <Link to="/reports">Reports</Link>
+      <Link to="/settings">Settings</Link>
 
-      <div className="nav-links">
-        <Link to="/">Dashboard</Link>
-        <Link to="/create">Create Issue</Link>
-        <Link to="/reports">Reports</Link>
-        <Link to="/analytics">Analytics</Link>
-        <Link to="/settings">Settings</Link>
-        <Link to="/about">About</Link>
-       
-      </div>
-    </div>
+      <button onClick={() => setIsAuth(false)}>Logout</button>
+    </nav>
   );
-};
-
-export default NavBar;
+}

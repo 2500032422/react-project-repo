@@ -1,44 +1,29 @@
-import { useContext, useState, useMemo } from "react";
-import { IssueContext } from "../context/IssueContext";
+import React from "react";
 import IssueCard from "../components/IssueCard";
-import StatusFilter from "../components/StatusFilter";
-import SummaryCards from "../components/SummaryCards";
-import SearchBar from "../components/SearchBar";
 
+export default function Dashboard({ issues = [], setIssues }) {
 
-const Dashboard = () => {
-  const { issues, loading, error } = useContext(IssueContext);
-  const [filter, setFilter] = useState("All");
-  const [search, setSearch] = useState("");
-
-  const filteredIssues = useMemo(() => {
-    return issues
-      .filter(issue => 
-        filter === "All" || issue.status === filter
-      )
-      .filter(issue =>
-        issue.title.toLowerCase().includes(search.toLowerCase())
-      );
-  }, [issues, filter, search]);
-
-  if (loading) return <p className="container">Loading...</p>;
-  if (error) return <p className="container">{error}</p>;
+  const updateStatus = (id, status) => {
+    setIssues((prev) =>
+      prev.map((i) => (i.id === id ? { ...i, status } : i))
+    );
+  };
 
   return (
-    <div className="container">
+    <div>
       <h2>Dashboard</h2>
 
-      <SummaryCards issues={issues} />
-
-      <SearchBar search={search} setSearch={setSearch} />
-
-      <StatusFilter currentFilter={filter} setFilter={setFilter} />
-
-      {filteredIssues.map(issue => (
-        <IssueCard key={issue.id} issue={issue} />
-      ))}
+      {issues.length === 0 ? (
+        <p>No issues yet</p>
+      ) : (
+        issues.map((issue) => (
+          <IssueCard
+            key={issue.id}
+            issue={issue}
+            onStatusChange={updateStatus}
+          />
+        ))
+      )}
     </div>
   );
-};
-
-export default Dashboard;
+}
