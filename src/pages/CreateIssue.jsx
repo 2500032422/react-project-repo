@@ -19,13 +19,13 @@ export default function CreateIssue({ setIssues }) {
       status: "Open",
     };
 
-    // 🔥 Add issue to global state
+    
     setIssues((prev) => [...prev, newIssue]);
 
-    // clear input
+    
     setTitle("");
 
-    // go to dashboard
+    
     navigate("/");
   };
 

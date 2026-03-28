@@ -12,17 +12,17 @@ export default function Register() {
       return;
     }
 
-    // get existing users
+    
     const users = JSON.parse(localStorage.getItem("users")) || [];
 
-    // check if user already exists
+    
     const userExists = users.find((u) => u.username === username);
     if (userExists) {
       alert("User already exists");
       return;
     }
 
-    // save new user
+    
     users.push({ username, password });
     localStorage.setItem("users", JSON.stringify(users));
 

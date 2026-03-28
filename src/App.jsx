@@ -9,7 +9,6 @@ import {
 
 import NavBar from "./components/NavBar";
 
-// Pages
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
@@ -18,12 +17,11 @@ import Analytics from "./pages/Analytics";
 import Reports from "./pages/Reports";
 import Settings from "./pages/Settings";
 
-// 🔐 Protected Route (inline to avoid import issues)
+
 function ProtectedRoute({ isAuth, children }) {
   return isAuth ? children : <Navigate to="/login" replace />;
 }
 
-// 🔥 Layout Component
 function Layout({ isAuth, setIsAuth, issues, setIssues }) {
   const location = useLocation();
 
@@ -88,7 +86,7 @@ function Layout({ isAuth, setIsAuth, issues, setIssues }) {
   );
 }
 
-// 🚀 Main App
+
 export default function App() {
   const [isAuth, setIsAuth] = useState(false);
 
